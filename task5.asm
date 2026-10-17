@@ -1,0 +1,30 @@
+
+.MODEL SMALL
+.STACK 100H
+
+.DATA
+    ARRAY DB 1,2,3,4,5,6,7,8
+
+.CODE
+MAIN PROC
+    MOV AX, @DATA
+    MOV DS, AX
+
+    MOV AH, 01H
+    INT 21H
+    SUB AL, 30H
+
+    MOV BL, AL
+    MOV SI, OFFSET ARRAY
+    MOV CX, 8
+
+ADDLOOP:
+    ADD [SI], BL
+    INC SI
+    LOOP ADDLOOP
+
+    MOV AH, 4CH
+    INT 21H
+
+MAIN ENDP
+END MAIN
